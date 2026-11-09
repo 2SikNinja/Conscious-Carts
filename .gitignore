@@ -1,0 +1,36 @@
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+*.iml
+.idea/
+.vscode/
+.DS_Store
+
+# Generated platform folders' local files
+android/local.properties
+android/.gradle/
+ios/Flutter/Generated.xcconfig
+ios/Pods/
+
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+*.local
+
+# Python (Cloud Functions)
+functions/.venv/
+functions/venv/
+functions/__pycache__/
+functions/**/__pycache__/
+functions/.pytest_cache/
+
+# Secrets: never commit real keys
+.env.local
+functions/.secret.local
