@@ -1,0 +1,48 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    function isShortStringList(value, maxItems) {
+      return value is list && value.size() <= maxItems;
+    }
+
+    function isValidProfile(profile) {
+      return profile is map
+        && profile.keys().hasOnly(['allergens', 'diets', 'goals', 'avoidIngredients'])
+        && isShortStringList(profile.get('allergens', []), 9)
+        && isShortStringList(profile.get('diets', []), 13)
+        && isShortStringList(profile.get('goals', []), 7)
+        && isShortStringList(profile.get('avoidIngredients', []), 10);
+    }
+
+    // Each user owns their own profile document.
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      allow create, update: if isOwner(uid)
+        && request.resource.data.keys().hasOnly(['profile', 'updatedAt'])
+        && isValidProfile(request.resource.data.get('profile', {}));
+      allow delete: if isOwner(uid);
+
+      // Favorites hold a small product snapshot keyed by its USDA id.
+      match /favorites/{fdcId} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && request.resource.data.keys().hasOnly(['food', 'addedAt'])
+          && request.resource.data.food is map
+          && string(request.resource.data.food.fdcId) == fdcId
+          && request.resource.data.food.description is string
+          && request.resource.data.food.description.size() <= 300;
+      }
+    }
+
+    // Caches and quota counters are written only by Cloud Functions (Admin SDK).
+    match /{collection}/{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
