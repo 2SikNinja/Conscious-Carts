@@ -25,7 +25,7 @@ export default function HomePage() {
         <p className="max-w-xl text-lg text-muted">
           Know what you eat before it hits your cart.
         </p>
-        <ButtonLink href="/sign-in" className="mt-2 px-6">
+        <ButtonLink href="/search" className="mt-2 px-6">
           Get started
         </ButtonLink>
       </div>
