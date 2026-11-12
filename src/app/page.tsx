@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const plannedFeatures = [
+const features = [
   { title: "Search and scan", text: "Find any product in the USDA database by name or barcode." },
   { title: "Health score", text: "An A to E grade for every product, based on its nutrients." },
   { title: "AI analysis", text: "A plain-language breakdown checked against your allergies and diet." },
@@ -26,15 +26,13 @@ export default function HomePage() {
       </div>
 
       <ul className="grid w-full gap-3 text-left sm:grid-cols-2">
-        {plannedFeatures.map((feature) => (
+        {features.map((feature) => (
           <li key={feature.title} className="rounded-2xl border border-border bg-surface p-5">
             <h2 className="font-semibold">{feature.title}</h2>
             <p className="mt-1 text-sm text-muted">{feature.text}</p>
           </li>
         ))}
       </ul>
-
-      <p className="text-sm text-muted">The app is being rebuilt. Features land here one by one.</p>
     </main>
   );
 }

@@ -6,38 +6,28 @@ Search, scan, and compare grocery products, then get an AI nutrition analysis ta
 
 Built with **Next.js** (App Router, TypeScript, Tailwind CSS), **Firebase** (Auth, Firestore, Cloud Functions in Python), the **USDA FoodData Central** API, and **Gemini** structured output.
 
-## Background
+## Features
 
-Conscious Carts started as a team project for Google's AI Hackathon in April 2024: a Flutter mobile app that searched USDA data and asked Gemini for a health analysis. This repository is a ground-up rebuild of that idea. It is web-first, keeps API keys on the server, returns structured AI output, and adds dietary profiles, barcode scanning, comparisons, and healthier swaps. A native iOS app on the same backend is planned next.
-
-## Roadmap
-
-The web app is being built feature by feature, one pull request each.
-
-- [x] Next.js setup, Firebase client, and CI
-- [ ] Sign in, create account, and guest mode
-- [ ] Search with filters and infinite scroll
-- [ ] Product details, nutrition facts, and A to E health score
-- [ ] AI analysis tailored to the dietary profile
-- [ ] Dietary profile (allergies, diets, goals, ingredients to avoid)
-- [ ] Favorites
-- [ ] Compare up to 4 products with charts
-- [ ] Healthier swaps
-- [ ] Barcode scanning
-- [ ] End-to-end tests and production deploy
+- **Search** branded and whole foods from the USDA database, with filters and infinite scroll
+- **Barcode scanning** with a phone or laptop camera, plus manual entry
+- **Health score** from A to E on every product, computed from its nutrients
+- **AI analysis** with a verdict, allergens, diet fit, notable ingredients, and tips
+- **Dietary profile** of allergies, diets, goals, and ingredients to avoid, applied to every analysis
+- **Compare** up to 4 products side by side with charts
+- **Healthier swaps** grounded in real products that score higher and fit your profile
+- **Favorites** and **guest mode**, with an in-place upgrade to a full account
 
 ## How it fits together
 
 ```
-Next.js web app (Vercel)          iOS app (planned)
-        │                                │
-        ├─ Firebase Auth (email + guest) ┤
-        ├─ Firestore: profile, favorites ┤
-        └─ Callable Cloud Functions (Python)
-              ├─ USDA FoodData Central
-              └─ Gemini (structured JSON)
-           Firestore caches: foods, analyses, swaps, barcodes
-           Firestore quotas: per-user daily AI limit
+Next.js web app (Vercel)
+  ├─ Firebase Auth (email + guest)
+  ├─ Firestore: profile, favorites
+  └─ Callable Cloud Functions (Python)
+       ├─ USDA FoodData Central
+       └─ Gemini (structured JSON)
+     Firestore caches: foods, analyses, swaps, barcodes
+     Firestore quotas: per-user daily AI limit
 ```
 
 API keys live only in Google Secret Manager. The app talks to the backend exclusively through callable functions, which verify the user's Firebase ID token.
@@ -118,7 +108,7 @@ python -m pytest tests
 
 ## Security decisions
 
-- **No keys in the client or the repo.** The original hackathon version committed its USDA and Gemini keys. Here they live in Secret Manager and are only read by Cloud Functions. The Firebase web config in `.env.local` identifies the project but grants nothing on its own.
+- **No keys in the client or the repo.** The USDA and Gemini keys live in Secret Manager and are only read by Cloud Functions. The Firebase web config in `.env.local` identifies the project but grants nothing on its own.
 - **Every endpoint requires a signed-in user** (guests included), verified from the Firebase ID token.
 - **Per-user daily AI limits** (40 for accounts, 10 for guests). Cached results do not count.
 - **Firestore rules** let users read and write only their own profile and favorites, validate the shape of what they write, and block client access to caches and quota counters.
