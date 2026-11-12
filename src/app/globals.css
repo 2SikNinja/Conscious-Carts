@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+/*
+ * Brand colors come from the frog logo: olive green on warm cream.
+ * Light and dark values are swapped with CSS variables so components only
+ * reference semantic names like bg-surface or text-muted.
+ */
+:root {
+  --background: #fcfaf0;
+  --foreground: #1f2a14;
+  --surface: #f5f1df;
+  --surface-strong: #ece6cc;
+  --border: #ddd6b8;
+  --muted: #5d6450;
+  --primary: #6b7f2a;
+  --primary-strong: #55661f;
+  --on-primary: #ffffff;
+  --danger: #c2362b;
+  --warning: #d9731c;
+  --success: #1b8a4b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #15190f;
+    --foreground: #eef0e4;
+    --surface: #1e2417;
+    --surface-strong: #283020;
+    --border: #353e2b;
+    --muted: #a5ac95;
+    --primary: #a9c25a;
+    --primary-strong: #c2d77e;
+    --on-primary: #1a2208;
+    --danger: #f0776c;
+    --warning: #f2a35e;
+    --success: #5fcf8c;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-on-primary: var(--on-primary);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-success: var(--success);
+
+  /* Health grade colors stay the same in both themes so A-E reads consistently. */
+  --color-grade-a: #1b8a4b;
+  --color-grade-b: #7cb342;
+  --color-grade-c: #e0a800;
+  --color-grade-d: #ef7d22;
+  --color-grade-e: #d7352b;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-pacifico), cursive;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
