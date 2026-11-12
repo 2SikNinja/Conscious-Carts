@@ -1,21 +1,26 @@
-# Flutter / Dart
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.packages
-.pub-cache/
-.pub/
-build/
-*.iml
-.idea/
-.vscode/
-.DS_Store
+# Dependencies
+/node_modules
+/.pnp
+.pnp.*
 
-# Generated platform folders' local files
-android/local.properties
-android/.gradle/
-ios/Flutter/Generated.xcconfig
-ios/Pods/
+# Next.js
+/.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Testing
+/coverage
+/playwright-report
+/test-results
+
+# Env files: commit only the example and the non-secret functions settings
+.env*
+!.env.example
+!functions/.env
+
+# Vercel
+.vercel
 
 # Firebase
 .firebase/
@@ -27,10 +32,16 @@ ui-debug.log
 # Python (Cloud Functions)
 functions/.venv/
 functions/venv/
-functions/__pycache__/
-functions/**/__pycache__/
-functions/.pytest_cache/
+__pycache__/
+.pytest_cache/
 
-# Secrets: never commit real keys
-.env.local
-functions/.secret.local
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+*.pem
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
