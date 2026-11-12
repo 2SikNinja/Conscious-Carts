@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { ButtonLink } from "@/components/ui/button";
+
 const features = [
   { title: "Search and scan", text: "Find any product in the USDA database by name or barcode." },
   { title: "Health score", text: "An A to E grade for every product, based on its nutrients." },
@@ -23,6 +25,9 @@ export default function HomePage() {
         <p className="max-w-xl text-lg text-muted">
           Know what you eat before it hits your cart.
         </p>
+        <ButtonLink href="/sign-in" className="mt-2 px-6">
+          Get started
+        </ButtonLink>
       </div>
 
       <ul className="grid w-full gap-3 text-left sm:grid-cols-2">

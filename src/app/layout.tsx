@@ -3,6 +3,9 @@ import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import localFont from "next/font/local";
 
+import { Providers } from "@/components/providers";
+import { SiteHeader } from "@/components/site-header";
+
 import "./globals.css";
 
 // Fonts are self-hosted so builds never depend on reaching Google Fonts.
@@ -36,7 +39,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${GeistSans.variable} ${GeistMono.variable} ${pacifico.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col font-sans">{children}</body>
+      <body className="flex min-h-full flex-col font-sans">
+        <Providers>
+          <SiteHeader />
+          {children}
+        </Providers>
+      </body>
     </html>
   );
 }
