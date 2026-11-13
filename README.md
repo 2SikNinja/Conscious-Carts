@@ -95,6 +95,7 @@ To develop against local emulators instead, set `NEXT_PUBLIC_USE_FIREBASE_EMULAT
 | `npm run lint` | ESLint |
 | `npm run typecheck` | Generate route types and run the TypeScript compiler |
 | `npm test` | Unit tests with Vitest |
+| `npm run test:e2e` | Playwright tests on desktop and phone, against the Auth emulator with Cloud Functions stubbed |
 | `npm run build` | Production build |
 
 Backend tests:
