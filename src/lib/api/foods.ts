@@ -1,5 +1,7 @@
 "use client";
 
+import { z } from "zod";
+
 import { callFunction } from "./client";
 import { foodSchema, searchPageSchema, type Food, type SearchFilter, type SearchPage } from "./schemas";
 
@@ -18,4 +20,13 @@ export function parseFdcId(value: string | undefined): number | null {
   if (!value || !/^\d{1,10}$/.test(value)) return null;
   const fdcId = Number(value);
   return fdcId > 0 ? fdcId : null;
+}
+
+const foodListSchema = z.object({ foods: z.array(foodSchema) });
+
+/** Full details for up to four products, in the order requested. */
+export async function getFoods(fdcIds: number[]): Promise<Food[]> {
+  if (fdcIds.length === 0) return [];
+  const { foods } = await callFunction("get_foods", { fdcIds }, foodListSchema);
+  return foods;
 }
