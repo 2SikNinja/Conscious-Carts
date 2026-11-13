@@ -26,7 +26,7 @@ function product(fdcId: number, description: string, brand: string, score: numbe
     category: "Cereal",
     upc: undefined as string | undefined,
     energyKcal: per100g.energyKcal,
-    healthScore: { score, grade, method: "food", breakdown: { sugars: -5, fiber: 3 } },
+    healthScore: { score, grade, method: "food", breakdown: { sugars: 5, fiber: -3 } },
     ingredients: "Whole grain oats, cane sugar, almonds, peanuts, salt.",
     servingSize: 55,
     servingUnit: "g",
