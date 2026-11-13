@@ -64,7 +64,7 @@ const profileAlertSchema = z.object({
 });
 
 /** Drops individual bad items instead of failing the whole list. */
-function lenientArray<Item extends z.ZodType>(item: Item) {
+export function lenientArray<Item extends z.ZodType>(item: Item) {
   return z
     .array(z.unknown())
     .catch([])
