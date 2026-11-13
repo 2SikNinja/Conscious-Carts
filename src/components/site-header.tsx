@@ -23,6 +23,7 @@ export function SiteHeader() {
           {status === "loading" ? null : status === "signedIn" ? (
             <>
               <NavLink href="/search" label="Search" />
+              <NavLink href="/favorites" label="Favorites" />
               <NavLink href="/profile" label={user?.isGuest ? "Guest" : "Profile"} />
             </>
           ) : (
