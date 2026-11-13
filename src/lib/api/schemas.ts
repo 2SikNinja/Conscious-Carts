@@ -60,3 +60,27 @@ export function parseSearchFilter(value: string | null | undefined): SearchFilte
 export function brandLine(food: Pick<FoodSummary, "brandName" | "brandOwner" | "dataType">): string {
   return food.brandName ?? food.brandOwner ?? (food.dataType === "Branded" ? "Unknown brand" : "Whole food");
 }
+
+const nutrientValuesSchema = z
+  .record(z.string(), z.number().finite())
+  .nullish()
+  .catch({})
+  .transform((value) => value ?? {});
+
+export const foodSchema = foodSummarySchema.extend({
+  ingredients: optionalText,
+  servingSize: optionalNumber,
+  servingUnit: optionalText,
+  servingText: optionalText,
+  packageWeight: optionalText,
+  publicationDate: optionalText,
+  isBeverage: z.boolean().catch(false),
+  per100g: nutrientValuesSchema,
+  perServing: nutrientValuesSchema,
+  units: z
+    .record(z.string(), z.string())
+    .nullish()
+    .catch({})
+    .transform((value) => value ?? {}),
+});
+export type Food = z.infer<typeof foodSchema>;
