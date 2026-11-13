@@ -5,10 +5,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { use, useEffect, type ReactNode } from "react";
 
+import { FavoriteButton } from "@/components/favorite-button";
 import { Button } from "@/components/ui/button";
 import { getFood, parseFdcId } from "@/lib/api/foods";
 import { brandLine, type Food } from "@/lib/api/schemas";
 import { friendlyMessage } from "@/lib/auth/errors";
+import { summaryOf } from "@/lib/favorites";
 import { servingLabel } from "@/lib/nutrition";
 
 import { AnalysisSection } from "./analysis-section";
@@ -62,7 +64,10 @@ function FoodContent({ food }: { food: Food }) {
 
   return (
     <article className="flex flex-col gap-6">
-      <BackLink />
+      <div className="flex items-center justify-between gap-3">
+        <BackLink />
+        <FavoriteButton food={summaryOf(food)} variant="labeled" />
+      </div>
 
       <header className="flex flex-col gap-2">
         <p className="text-sm font-semibold text-primary">{brandLine(food)}</p>
