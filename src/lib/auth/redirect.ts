@@ -1,5 +1,5 @@
 /** Where people land after signing in when no other page was requested. */
-export const defaultSignedInPath = "/profile";
+export const defaultSignedInPath = "/search";
 
 /**
  * Validates a `from` value before redirecting to it after sign-in.
