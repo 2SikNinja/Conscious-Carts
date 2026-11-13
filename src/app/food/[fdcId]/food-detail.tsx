@@ -17,6 +17,7 @@ import { servingLabel } from "@/lib/nutrition";
 import { AnalysisSection } from "./analysis-section";
 import { HealthScoreCard } from "./health-score-card";
 import { NutritionFacts } from "./nutrition-facts";
+import { SwapsSection } from "./swaps-section";
 
 export function FoodDetail({ params }: { params: Promise<{ fdcId: string }> }) {
   const fdcId = parseFdcId(use(params).fdcId);
@@ -87,10 +88,11 @@ function FoodContent({ food }: { food: Food }) {
         ) : null}
       </header>
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:items-start">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:items-start">
         <div className="flex flex-col gap-6">
           <HealthScoreCard food={food} />
           <AnalysisSection fdcId={food.fdcId} />
+          <SwapsSection fdcId={food.fdcId} />
         </div>
         <div className="flex flex-col gap-6">
           <Section title="Nutrition facts">
