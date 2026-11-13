@@ -147,7 +147,7 @@ export function ProfileForm({ savedProfile, onSave }: ProfileFormProps) {
 
       <div
         className={
-          "sticky bottom-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border p-4 transition " +
+          "sticky bottom-[calc(5.25rem+env(safe-area-inset-bottom))] flex flex-wrap sm:bottom-4 items-center justify-between gap-3 rounded-2xl border p-4 transition " +
           (hasChanges ? "border-primary bg-background shadow-lg" : "border-transparent")
         }
       >

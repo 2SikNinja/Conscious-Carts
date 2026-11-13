@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { use, useEffect, type ReactNode } from "react";
 
+import { CompareButton } from "@/components/compare-button";
 import { FavoriteButton } from "@/components/favorite-button";
 import { Button } from "@/components/ui/button";
 import { getFood, parseFdcId } from "@/lib/api/foods";
@@ -66,7 +67,10 @@ function FoodContent({ food }: { food: Food }) {
     <article className="flex flex-col gap-6">
       <div className="flex items-center justify-between gap-3">
         <BackLink />
-        <FavoriteButton food={summaryOf(food)} variant="labeled" />
+        <div className="flex gap-2">
+          <CompareButton fdcId={food.fdcId} name={food.description} variant="labeled" />
+          <FavoriteButton food={summaryOf(food)} variant="labeled" />
+        </div>
       </div>
 
       <header className="flex flex-col gap-2">
