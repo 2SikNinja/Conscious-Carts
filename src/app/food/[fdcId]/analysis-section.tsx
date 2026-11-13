@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { Button, Spinner } from "@/components/ui/button";
@@ -112,6 +113,15 @@ function AnalysisBody({ result }: { result: AnalysisResult }) {
       </div>
 
       <p className="leading-relaxed">{analysis.summary}</p>
+
+      {!result.profileApplied ? (
+        <Link
+          href="/profile#dietary-profile"
+          className="rounded-xl border border-dashed border-primary/50 px-4 py-3 text-sm font-medium text-primary hover:bg-primary/5"
+        >
+          Add your allergies and diets to get a verdict tailored to you →
+        </Link>
+      ) : null}
 
       {analysis.allergens.length > 0 ? (
         <Group title="Allergens">
