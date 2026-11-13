@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 import { useAuth } from "@/lib/auth/auth-context";
 import { signInUrlFor } from "@/lib/auth/redirect";
@@ -20,9 +20,20 @@ export function RequireAuth({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const wasSignedIn = useRef(false);
 
   useEffect(() => {
+    if (status === "signedIn") {
+      wasSignedIn.current = true;
+      return;
+    }
     if (status !== "signedOut") return;
+    // Signing out (here or in another tab) ends on the home page. Only visitors
+    // who arrive signed out are sent to sign in and brought back afterwards.
+    if (wasSignedIn.current) {
+      router.replace("/");
+      return;
+    }
     const query = searchParams.toString();
     router.replace(signInUrlFor(query ? `${pathname}?${query}` : pathname));
   }, [status, pathname, searchParams, router]);
