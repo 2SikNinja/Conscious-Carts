@@ -30,3 +30,15 @@ export async function getFoods(fdcIds: number[]): Promise<Food[]> {
   const { foods } = await callFunction("get_foods", { fdcIds }, foodListSchema);
   return foods;
 }
+
+const barcodeResultSchema = z.object({
+  found: z.boolean(),
+  food: foodSchema.nullish().transform((value) => value ?? null),
+});
+export type BarcodeResult = z.infer<typeof barcodeResultSchema>;
+
+/** Finds the branded product with this barcode. `code` should already be normalized. */
+export async function lookupBarcode(code: string): Promise<Food | null> {
+  const result = await callFunction("lookup_barcode", { code }, barcodeResultSchema);
+  return result.found ? result.food : null;
+}
