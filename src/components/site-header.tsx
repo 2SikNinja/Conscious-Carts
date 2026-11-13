@@ -26,6 +26,7 @@ function useNavItems(): NavItem[] {
   const { ids } = useCompare();
   return [
     { href: "/search", label: "Search", icon: <SearchIcon /> },
+    { href: "/scan", label: "Scan", icon: <ScanIcon /> },
     { href: "/compare", linkHref: compareHref(ids), label: "Compare", icon: <CompareIcon />, count: ids.length },
     { href: "/favorites", label: "Favorites", icon: <HeartIcon /> },
     { href: "/profile", label: user?.isGuest ? "Guest" : "Profile", icon: <PersonIcon /> },
@@ -104,7 +105,7 @@ function MobileTabs() {
         aria-label="Main"
         className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur sm:hidden"
       >
-        <ul className="grid grid-cols-4">
+        <ul className="grid grid-cols-5">
           {items.map((item) => (
             <li key={item.href}>
               <Link
@@ -157,6 +158,14 @@ function SearchIcon() {
     <Icon>
       <circle cx="11" cy="11" r="7" />
       <path d="m20 20-3.5-3.5" />
+    </Icon>
+  );
+}
+
+function ScanIcon() {
+  return (
+    <Icon>
+      <path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 8v8M11 8v8M14 8v8M17 8v8" />
     </Icon>
   );
 }
