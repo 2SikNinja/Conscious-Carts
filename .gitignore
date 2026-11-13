@@ -9,6 +9,9 @@
 next-env.d.ts
 *.tsbuildinfo
 
+# Barcode reader WebAssembly, copied from node_modules by scripts/copy-scanner-wasm.mjs
+/public/zxing/
+
 # Testing
 /coverage
 /playwright-report
