@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState, type ReactNode } from "react";
 
 import { AuthProvider } from "@/lib/auth/auth-context";
+import { FavoritesProvider } from "@/lib/firestore/favorites";
 
 function createQueryClient() {
   return new QueryClient({
@@ -28,7 +29,9 @@ export function Providers({ children }: { children: ReactNode }) {
   const [queryClient] = useState(createQueryClient);
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider>
+        <FavoritesProvider>{children}</FavoritesProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
