@@ -2,14 +2,15 @@ import Link from "next/link";
 
 import { brandLine, type FoodSummary } from "@/lib/api/schemas";
 
+import { CompareButton } from "./compare-button";
 import { FavoriteButton } from "./favorite-button";
 import { HealthScoreBadge } from "./health-score-badge";
 
 export function FoodTile({ food }: { food: FoodSummary }) {
   const calories = food.energyKcal === undefined ? null : `${Math.round(food.energyKcal)} kcal / 100 g`;
 
-  // The link stretches over the whole tile with ::after, so the favorite button
-  // can sit on top of it without nesting a button inside a link.
+  // The link stretches over the whole tile with ::after, so the action buttons
+  // can sit on top of it without nesting buttons inside a link.
   return (
     <div className="relative flex items-center gap-4 rounded-2xl border border-border bg-surface py-3 pl-4 pr-2 transition focus-within:outline-2 focus-within:outline-primary hover:border-primary/50 hover:bg-surface-strong">
       <HealthScoreBadge healthScore={food.healthScore} />
@@ -24,7 +25,10 @@ export function FoodTile({ food }: { food: FoodSummary }) {
           {[brandLine(food), calories].filter(Boolean).join("  ·  ")}
         </p>
       </div>
-      <FavoriteButton food={food} className="relative z-10" />
+      <div className="relative z-10 flex">
+        <CompareButton fdcId={food.fdcId} name={food.description} />
+        <FavoriteButton food={food} />
+      </div>
     </div>
   );
 }
