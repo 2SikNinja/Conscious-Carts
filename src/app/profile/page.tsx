@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { RequireAuth } from "@/components/require-auth";
 
 import { AccountCard } from "./account-card";
+import { DietaryProfileSection } from "./dietary-profile-section";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -16,7 +17,10 @@ export default function ProfilePage() {
       {/* RequireAuth reads the current URL to send visitors back after sign-in. */}
       <Suspense>
         <RequireAuth>
-          <AccountCard />
+          <div className="flex flex-col gap-10">
+            <AccountCard />
+            <DietaryProfileSection />
+          </div>
         </RequireAuth>
       </Suspense>
     </main>

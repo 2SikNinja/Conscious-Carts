@@ -11,6 +11,7 @@ import { brandLine, type Food } from "@/lib/api/schemas";
 import { friendlyMessage } from "@/lib/auth/errors";
 import { servingLabel } from "@/lib/nutrition";
 
+import { AnalysisSection } from "./analysis-section";
 import { HealthScoreCard } from "./health-score-card";
 import { NutritionFacts } from "./nutrition-facts";
 
@@ -80,6 +81,12 @@ function FoodContent({ food }: { food: Food }) {
       <div className="grid gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:items-start">
         <div className="flex flex-col gap-6">
           <HealthScoreCard food={food} />
+          <AnalysisSection fdcId={food.fdcId} />
+        </div>
+        <div className="flex flex-col gap-6">
+          <Section title="Nutrition facts">
+            <NutritionFacts food={food} />
+          </Section>
           <Section title="Ingredients">
             {food.ingredients ? (
               <p className="leading-relaxed">{food.ingredients}</p>
@@ -88,9 +95,6 @@ function FoodContent({ food }: { food: Food }) {
             )}
           </Section>
         </div>
-        <Section title="Nutrition facts">
-          <NutritionFacts food={food} />
-        </Section>
       </div>
 
       <p className="text-sm text-muted">
