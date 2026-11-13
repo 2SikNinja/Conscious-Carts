@@ -4,7 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import localFont from "next/font/local";
 
 import { Providers } from "@/components/providers";
-import { SiteHeader } from "@/components/site-header";
+import { MobileTabBar, SiteHeader } from "@/components/site-header";
 
 import "./globals.css";
 
@@ -43,6 +43,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Providers>
           <SiteHeader />
           {children}
+          <MobileTabBar />
         </Providers>
       </body>
     </html>
